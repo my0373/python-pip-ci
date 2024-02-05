@@ -48,4 +48,4 @@ jobs:
           # Collect VCS details from git and add them to the build
           jf rt build-add-git
           # Publish build info
-          jf rt build-publish --project=pyci
+          jf rt build-publish --exclusions "*.venv*" --project=pyci
