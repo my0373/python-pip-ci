@@ -38,7 +38,7 @@ jobs:
        - name: Check the source complies with the project policies
          run: |
           # Collect environment variables for the build
-          jf audit --project "pyci"
+          jf audit --exclusions "*.venv*" --project "pyci"
        
        # Collect build information and push to the repository
        - name: Publish Build info With JFrog CLI
@@ -48,4 +48,4 @@ jobs:
           # Collect VCS details from git and add them to the build
           jf rt build-add-git
           # Publish build info
-          jf rt build-publish --exclusions "*.venv*" --project=pyci
+          jf rt build-publish --project=pyci
