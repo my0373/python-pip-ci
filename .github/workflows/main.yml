@@ -22,7 +22,11 @@ jobs:
        # Create a pip build configuration using the pyci-pypi jfrog repository.
        - name: Set CLI Config
          run: jf pip-config --global=true --repo-resolve=pyci-pypi
-       
+
+       # Install virtualenv
+       - name: Install venv
+         run: jf pip install virtualenv
+
        # Install the package dependencies
        - name: Install Deps
          run: jf pip install .
