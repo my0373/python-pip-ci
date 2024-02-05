@@ -41,6 +41,7 @@ jobs:
        
        - name: Check the source complies with the project policies
          run: |
+          cd pythonExample 
           # Collect environment variables for the build
           jf audit --exclusions "*.venv*" --project "pyci"
        
