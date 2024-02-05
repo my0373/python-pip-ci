@@ -44,7 +44,13 @@ jobs:
           cd pythonExample 
           # Collect environment variables for the build
           jf audit --exclusions "*.venv*" --project "pyci"
-       
+
+       - name: Check the binaries comply with the project policies
+         run: |
+          cd build 
+          # Collect environment variables for the build
+          jf scan --project "pyci"   
+          
        # Collect build information and push to the repository
        - name: Publish Build info With JFrog CLI
          run: |
