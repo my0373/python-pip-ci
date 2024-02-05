@@ -8,27 +8,34 @@ jobs:
      runs-on: ubuntu-latest
        
      steps:
+       # Check out the github code.
        - name: Checkout
          uses: actions/checkout@v3
-         
+
+       # Install the JFrog CLI  
        - name: Setup JFrog CLI
          uses: jfrog/setup-jfrog-cli@v3
          env:  
            JF_URL: ${{ secrets.JF_URL }}
            JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
-           
+
+       # Create a pip build configuration using the pyci-pypi jfrog repository.
        - name: Set CLI Config
          run: jf pip-config --global=true --repo-resolve=pyci-pypi
-           
+       
+       # Install the package dependencies
        - name: Install Deps
          run: jf pip install .
-           
+
+       # Create the pypi packages
        - name: Package the project
          run: python setup.py sdist bdist_wheel
-         
+       
+       # Python wheel packages in the dist folder  
        - name: Publish
          run: jf rt upload dist/ pyci-pypi/
-         
+
+       # Collect build information and push to the repository
        - name: Publish Build info With JFrog CLI
          run: |
           # Collect environment variables for the build
@@ -36,4 +43,4 @@ jobs:
           # Collect VCS details from git and add them to the build
           jf rt build-add-git
           # Publish build info
-          jf rt build-publish
+          jf rt build-publish --project=pyci
