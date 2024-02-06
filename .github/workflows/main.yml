@@ -23,9 +23,6 @@ jobs:
        - name: Set CLI Config
          run: jf pip-config --global=true --repo-resolve=pyci-pypi
 
-       # Install virtualenv
-       - name: Install venv
-         run: jf pip install virtualenv
 
        # Install the package dependencies
        - name: Install Deps
@@ -41,13 +38,11 @@ jobs:
        
        - name: Check the source complies with the project policies
          run: |
-          cd pythonExample 
           # Collect environment variables for the build
           jf audit --exclusions "*.venv*" --project "pyci"
 
        - name: Check the binaries comply with the project policies
          run: |
-          cd build 
           # Collect environment variables for the build
           jf scan "*.tar.gz" --project "pyci"   
           
